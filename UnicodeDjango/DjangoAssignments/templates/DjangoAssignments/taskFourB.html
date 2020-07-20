@@ -1,0 +1,90 @@
+<style>
+    tr, th, td{
+        border: 1px solid black
+    }
+    table {border-collapse: collapse;}
+</style>
+The top three values in the database are:
+{%if response%}
+    <table>   
+        <tr>
+            <th>
+                Count
+            </th>
+            <th>
+                Server Time
+            </th>
+            <th>
+                City
+            </th>
+            <th>
+                Country Code:
+            </th>
+            <th>
+                Coordinates
+            </th>
+            <th>
+                Weather
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Temperature
+            </th>
+            <th>
+                Pressure
+            </th>
+            <th>
+                Humidity
+            </th>
+            <th>
+                Visibility
+            </th>
+            <th>
+                Wind Speed
+            </th>
+        </tr>
+        
+        {%for obj in response%}
+        <tr>
+            <td>
+                {{obj.count}}
+            </td>
+            <td>
+                {{ obj.date|time:"H:i:s A" }}
+            </td>
+            <td>
+                {{obj.city}}
+            </td>
+            <td>
+                {{obj.country}}
+            </td>
+            <td>
+                ({{obj.latitude}},{{obj.longitude}})
+            </td>
+            <td>
+                {{obj.weather}}
+            </td>
+            <td>
+                {{obj.description}}
+            </td>
+            <td>
+                {{obj.temperature}}
+            </td>
+            <td>
+                {{obj.pressure}}
+            </td>
+            <td>
+                {{obj.humidity}}
+            </td>
+            <td>
+                {{obj.visibility}}
+            </td>
+            <td>
+                {{obj.wind_speed}}
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+{%endif%}

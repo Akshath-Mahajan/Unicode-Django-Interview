@@ -1,91 +1,45 @@
-<style>
-    tr, th, td{
-        border: 1px solid black
-    }
-    table {border-collapse: collapse;}
-</style>
-<form method="POST" action="{%url 'taskFourA'%}">
-    {%csrf_token%}
-    <label for="city">City Name:</label>
-    <input type="text" id="city" name="city" required>
-    <label for="date">Enter a date:</label>
-    <input id="date" name="date" type="date" required>
-    <input type="submit">
-</form>
-{%if response%}
-    <table>        
-        <tr>
-            <th>
-                Server Time
-            </th>
-            <th>
-                City
-            </th>
-            <th>
-                Country Code:
-            </th>
-            <th>
-                Coordinates
-            </th>
-            <th>
-                Weather
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Temperature
-            </th>
-            <th>
-                Pressure
-            </th>
-            <th>
-                Humidity
-            </th>
-            <th>
-                Visibility
-            </th>
-            <th>
-                Wind Speed
-            </th>
-        </tr>
-        
-        {%for obj in response%}
-        <tr>
-            <td>
-                {{ obj.date|time:"H:i:s A" }}
-            </td>
-            <td>
-                {{obj.city}}
-            </td>
-            <td>
-                {{obj.country}}
-            </td>
-            <td>
-                ({{obj.latitude}},{{obj.longitude}})
-            </td>
-            <td>
-                {{obj.weather}}
-            </td>
-            <td>
-                {{obj.description}}
-            </td>
-            <td>
-                {{obj.temperature}}
-            </td>
-            <td>
-                {{obj.pressure}}
-            </td>
-            <td>
-                {{obj.humidity}}
-            </td>
-            <td>
-                {{obj.visibility}}
-            </td>
-            <td>
-                {{obj.wind_speed}}
-            </td>
-        </tr>
-        {%endfor%}
-    </table>
-{%endif%}
+{%extends 'DjangoAssignments/base.html'%}
+{%block body%}
+    <h1>Fill the form below to Query the database</h1>
+    <form method="POST" action="{%url 'taskFourA'%}" class="form-inline mt-3">
+        {%csrf_token%}
+        <label class="mr-sm-2 mb-2" for="city">City Name:</label>
+        <input class="form-control mr-sm-2 mb-2" type="text" id="city" name="city" required>
+        <label class="mr-sm-2 mb-2" for="date">Enter a date:</label>
+        <input class="form-control mr-sm-2 mb-2" id="date" name="date" type="date" required>
+        <input class="form-control mr-sm-2 mb-2 btn btn-info" type="submit">
+    </form>
+    {%if response%}
+    <div class="table-responsive">
+        <table class="table table-hover">   
+            <thead class="thead-dark">
+                <tr>
+                    <th>Server Time</th>
+                    <th>Location</th>
+                    <th>Weather</th>
+                    <th>Description</th>
+                    <th>Temperature</th>
+                    <th>Pressure</th>
+                    <th>Humidity</th>
+                    <th>Visibility</th>
+                    <th>Wind Speed</th>
+                </tr>
+            </thead>
+            {%for obj in response%}
+            <tr>
+                <td>{{ obj.date|time:"h:i:s A" }}</td>
+                <td>{{obj.city}}, {{obj.country}}</td>
+                <td>{{obj.weather}}</td>
+                <td>{{obj.description}}</td>
+                <td>{{obj.temperature}}</td>
+                <td>{{obj.pressure}}</td>
+                <td>{{obj.humidity}}</td>
+                <td>{{obj.visibility}}</td>
+                <td>{{obj.wind_speed}}</td>
+            </tr>
+            {%endfor%}
+        </table>
+    </div>
+   
+    {%endif%}
+{%endblock body%}

@@ -1,13 +1,17 @@
-<form method="POST" action="{%url 'taskThree'%}">
-    {%csrf_token%}
-    <label for="city">City Name:</label>
-    <input type="text" id="city" name="city" required>
-    <label for="country">Country Code:</label>
-    <input type="text" id="country" name="country" required>
-    <input type="submit">
-</form>
-{%if response%}
-<div>
-    {{response}}
-</div>
-{%endif%}
+{%extends 'DjangoAssignments/base.html'%}
+{%block body%}
+    <h1>Fill the data to call openweathermaps API</h1>
+    <form method="POST" action="{%url 'taskThree'%}" class="form-inline mt-3">
+        {%csrf_token%}
+        <label class="mr-sm-2 mb-2" for="city">City Name:</label>
+        <input class="form-control mr-sm-2 mb-2" type="text" id="city" name="city" required>
+        <label class="mr-sm-2 mb-2" for="country">Country Code:</label>
+        <input class="form-control mr-sm-2 mb-2" type="text" id="country" name="country" required>
+        <input class="form-control mr-sm-2 mb-2 btn btn-info" type="submit">
+    </form>
+    {%if response%}
+        <div class="container">
+            {{response}}
+        </div>
+    {%endif%}
+{%endblock body%}

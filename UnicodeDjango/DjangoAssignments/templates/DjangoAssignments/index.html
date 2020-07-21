@@ -1,11 +1,129 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{%extends 'DjangoAssignments/base.html'%}
+{%block body%}
+<ul class="nav nav-tabs nav-justified">
+    <li class="nav-item">
+      <a class="nav-link" href="#taskTwo">Binary Checker</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#taskThree">API Call</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#taskFour">Database Query</a>
+    </li>
+</ul>
+<div id="taskTwo" class="container mt-5">
+    <h1>Binary Checker:</h1>
+    <strong>
+        This section is the result of Task One and Task Two. 
+    </strong>
+    <p class="mt-2">You can either go to <strong>/taskTwo/&lt;Start Number&gt;-&lt;End Number&gt;</strong> to view the <strong>HttpResponse</strong>
+       (as asked in the problem statement) or you can fill out the form below to make an <strong>Ajax</strong> call to the same url
+       and render the result on this page itself
+	</p>
+	<p>Example link: <a href="{%url 'taskTwo' 2 7%}">Click here</a></p>
+    <form method="POST" class="form-inline">
+        <input id="start" type="number" class="form-control mr-sm-2 mb-2" placeholder="Start">
+        <input id="end" type="number" class="form-control mr-sm-2 mb-2" placeholder="End">
+        <button type="button" class="btn btn-info form-control mr-sm-2 mb-2" onclick="taskTwoAJAX()">Go</button>
+    </form>
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#rawResponse">Raw Response</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#tabResponse">Tabulated Response</a>
+      </li>
+    </ul>
+    <div class="tab-content border">
+      <div id="rawResponse" class="container tab-pane active"><br>
+        <h3>HttpResponse:</h3>
+        <p id="rawResponseResult" style="word-wrap: break-word;">
+          Once you make the Ajax call, you will see the HttpResponse here
+        </p>
+      </div>
+      <div id="tabResponse" class="container tab-pane fade"><br>
+        <h3>Tabulated Response:</h3>
+        <p id="tabResponseResult">
+          Once you make the Ajax call, you will see a tabulated form of the result here
+        </p>
+      </div>
+    </div>
+</div>
+<div id="taskThree" class="container mt-5">
+	<h1>API Call:</h1>
+	<strong>This section is the result of Task Three and also stores the data in the database for Task Four.</strong>
+	<p class="mt-2">
+		The API we call in this project is the <strong>"openweathermaps"</strong> API.<br>
+      	You can either go to <strong>/taskThree/</strong> to fill the form and view the <strong>Response</strong> from openweathermaps API
+      	(as asked in the problem statement) or you can fill out the form below to make an <strong>Ajax</strong> call to the same url
+      	and render the result on this page itself
+	</p>
+	<p>Link to the view: <a href="{%url 'taskThree'%}">Click here</a></p>
+	<form method="POST" class="form-inline">
+		<input id="city" type="text" class="form-control mr-sm-2 mb-2" placeholder="City">
+		<input id="country-code" type="text" class="form-control mr-sm-2 mb-2" placeholder="Country Code">
+		<button type="button" class="btn btn-info form-control mr-sm-2 mb-2" onclick="taskThreeAJAX()">Go</button>
+	</form>
+	<ul class="nav nav-tabs" role="tablist">
+    	<li class="nav-item">
+      		<a class="nav-link active" data-toggle="tab" href="#rawApiResponse">Raw Response</a>
+    	</li>
+    	<!-- <li class="nav-item">
+      		<a class="nav-link" data-toggle="tab" href="#tabApiResponse">Tabulated Response</a>
+    	</li> -->
+  	</ul>
+  	<div class="tab-content border">
+  		<div id="rawApiResponse" class="container tab-pane active"><br>
+			<h3>API Response:</h3>
+			<p id="rawApiResponseResult" style="word-wrap: break-word;">
+				Once you make the Ajax call, you will see the API Response here
+			</p>
+    	</div>
+    	<!-- <div id="tabApiResponse" class="container tab-pane fade"><br>
+			<h3>Tabulated API Response:</h3>
+			<p id="tabApiResponseResult">
+				Once you make the Ajax call, you will see a tabulated form of the API Response here
+			</p>
+    	</div> -->
+  	</div>
+  	
+</div>
+<div id="taskFour" class="container mt-5 mb-5">
+    <h1>Database Query:</h1>
+	<strong>This section is the result of Task Four (divided into two parts - Four A and Four B) </strong>
+	<p class="mt-2">You can either go to <strong>/taskFourA/</strong> and <strong>/taskFourB/</strong> to query or view the data in the Database
+		(as asked in the problem statement) or you can fill out the form below to make an <strong>Ajax</strong> call to the same url
+		and render the result on this page itself
+	</p>
+	<p>Link to the view: <a href="{%url 'taskFourA'%}">Click here (4-A: Database Search)</a></p>
+	<p>Link to the view: <a href="{%url 'taskFourB'%}">Click here (4-B: Database Top 3)</a></p>
+	<form method="POST" class="form-inline">
+		<input id="dbCity" type="text" class="form-control mr-sm-2 mb-2" placeholder="City">
+		<input id="dbDate" type="date" class="form-control mr-sm-2 mb-2">
+		<button type="button" class="btn btn-info form-control mr-sm-2 mb-2" onclick="taskFourAAJAX()">Search Database</button>
+		<button type="button" class="btn btn-info form-control mr-sm-2 mb-2" onclick="taskFourBAJAX()">Get Top Three</button>
+	</form>
+	<ul class="nav nav-tabs" role="tablist">
+		<li class="nav-item">
+		  <a class="nav-link active" data-toggle="tab" href="#DBResponseA">Four-A Response</a>
+		</li>
+		<li class="nav-item">
+		  <a class="nav-link" data-toggle="tab" href="#DBResponseB">Four-B Response</a>
+		</li>
+	  </ul>
+	  <div class="tab-content border">
+		<div id="DBResponseA" class="container tab-pane active"><br>
+		  <h3>Four-A Response:</h3>
+		  <p id="DBResponseAResult">
+			Once you make the Ajax call, you will see the result of your query here
+		  </p>
+		</div>
+		<div id="DBResponseB" class="container tab-pane fade"><br>
+		  <h3>Four-B Response:</h3>
+		  <p id="DBResponseBResult">
+			Click the button below to load the 3 data objects with highest count value
+		  </p>
+		</div>
+	  </div>
+</div>
+{%endblock body%}
